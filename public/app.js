@@ -723,12 +723,12 @@ function migrateV2(S){
 }
 
 /* ================= Supabase sync ================= */
-const SB_URL='https://dlsybeyltcmvoaigxhzv.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsc3liZXlsdGNtdm9haWd4aHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0NDU3MzksImV4cCI6MjEwNzAyMTczOX0.SB5i9XfUHN2-I3z1VsCYo2rtlsnh4t2n_nWNviUwHVQ';
+const SB_URL='https://qekfkosslaninyqkptlz.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFla2Zrb3NzbGFuaW55cWtwdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5ODAyOTMsImV4cCI6MjEwNzU1NjI5M30.C9BtS1RJH4o0BtYJKyOh4YYTyX7i2_el1qAvc7jnTXs';
 const SESSION_KEY='akam-session',LOCAL_KEY='akam-local-v2',THEME_KEY='akam-theme';
 const COLLS={users:'users',props:'properties',units:'units',tenants:'tenants',tickets:'tickets',rent:'rent',notifs:'notifs',outbox:'outbox',log:'audit_log',insp:'inspections',items:'items',moves:'stock_moves',vehicles:'vehicles',vjobs:'vehicle_jobs',patrols:'patrols',visitors:'visitors'};
 const RECENT={notifs:900,outbox:500,log:500,patrols:600,visitors:400,moves:600};
-let sb=null;try{if(window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY,{db:{schema:'aqar'},auth:{persistSession:false,autoRefreshToken:false},realtime:{params:{eventsPerSecond:20}}})}catch(e){}
+let sb=null;try{if(window.supabase)sb=window.supabase.createClient(SB_URL,SB_KEY,{db:{schema:'public'},auth:{persistSession:false,autoRefreshToken:false},realtime:{params:{eventsPerSecond:20}}})}catch(e){}
 let online=false,syncState='',metaSnap='',setSnap='';
 const snap={};const outboxStatus={};
 function stable(v){if(v===null||typeof v!=='object')return JSON.stringify(v);if(Array.isArray(v))return '['+v.map(x=>x===undefined?'null':stable(x)).join(',')+']';return '{'+Object.keys(v).filter(k=>v[k]!==undefined&&typeof v[k]!=='function'&&k[0]!=='_').sort().map(k=>JSON.stringify(k)+':'+stable(v[k])).join(',')+'}'}
@@ -803,9 +803,9 @@ function setSync(st){syncState=st;const el=document.getElementById('sync');if(el
 let rrT=null;
 function subscribe(){
   const ch=sb.channel('aqar-live');
-  Object.entries(COLLS).forEach(([k,t])=>{if(k==='log')return;ch.on('postgres_changes',{event:'*',schema:'aqar',table:t},p=>applyRemote(k,p.new))});
-  ch.on('postgres_changes',{event:'*',schema:'aqar',table:'alerts'},p=>{const r=p.new;if(!r||!r.id)return;const i=S.alerts.findIndex(a=>a.id===r.id);if(i>=0)S.alerts[i]=r;else S.alerts.unshift(r);queueRender()});
-  ch.on('postgres_changes',{event:'*',schema:'aqar',table:'meta'},p=>{const r=p.new;if(!r||!r.data)return;
+  Object.entries(COLLS).forEach(([k,t])=>{if(k==='log')return;ch.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyRemote(k,p.new))});
+  ch.on('postgres_changes',{event:'*',schema:'public',table:'alerts'},p=>{const r=p.new;if(!r||!r.id)return;const i=S.alerts.findIndex(a=>a.id===r.id);if(i>=0)S.alerts[i]=r;else S.alerts.unshift(r);queueRender()});
+  ch.on('postgres_changes',{event:'*',schema:'public',table:'meta'},p=>{const r=p.new;if(!r||!r.data)return;
     if(r.id==='state'&&r.data.seq){Object.keys(r.data.seq).forEach(k=>S.seq[k]=Math.max(S.seq[k]||0,r.data.seq[k]||0));if(r.data.lastReminderRun)S.lastReminderRun=r.data.lastReminderRun;metaSnap=stable(metaOf())}
     if(r.id==='settings'){S.settings=Object.assign({},DEFAULT_SETTINGS,r.data);setSnap=stable(S.settings);queueRender()}});
   ch.subscribe(st=>{if(st==='SUBSCRIBED')setSync('live');else if(st==='CHANNEL_ERROR'||st==='TIMED_OUT'||st==='CLOSED')setSync('offline')});
