@@ -561,3 +561,24 @@ html,body{overflow-x:clip}
 .mo .dial .knob{animation:mo-fade .4s ease-out 1s both}
 .mo .figs .fig,.mo .tv-heat>*{animation:mo-fade .5s ease-out both;animation-delay:var(--mo-d,0ms)}
 @media (prefers-reduced-motion:reduce){.mo *{animation:none!important}}
+/* ---------- building photos, editing, theme switch (14 Nov) ---------- */
+.bphoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bimg .bedit{position:absolute;inset-inline-end:12px;bottom:10px;width:36px;height:36px;border-radius:999px;background:var(--surface);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.22);cursor:pointer;transition:background .15s,color .15s}
+.bimg .bedit:hover,.bimg .bedit:focus-visible{background:var(--gold);color:#1A1A1A}
+.pgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.pg{margin:0;position:relative;border-radius:14px;overflow:hidden;background:var(--surface-2);border:1px solid var(--line);aspect-ratio:4/3}
+.pg>a{display:block;width:100%;height:100%}
+.pg img{width:100%;height:100%;object-fit:cover;display:block}
+.pg.cover{outline:2px solid var(--gold);outline-offset:-2px}
+.pg-badge{position:absolute;top:8px;inset-inline-start:8px;display:inline-flex;gap:4px;align-items:center;background:var(--gold);color:#1A1A1A;font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:999px}
+.pg-badge svg{width:13px;height:13px}
+.pg-acts{position:absolute;bottom:8px;inset-inline:8px;display:flex;gap:6px;justify-content:flex-end}
+.pg-acts .btn{flex:none}
+.btn.xs{height:30px;padding:0 10px;font-size:12px;gap:5px}
+.btn.xs svg{width:15px;height:15px}
+.xf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:8px;align-items:center}
+.login-lang{display:flex;gap:8px;align-items:center}
+.themebtn svg{width:19px;height:19px}
+@media (max-width:640px){.xf{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}.pgal{grid-template-columns:repeat(2,minmax(0,1fr))}.top .themebtn{width:36px;height:36px}}
+.bimg .bedit svg{position:static;inset:auto;width:18px;height:18px}
+@media (max-width:640px){.top{flex-wrap:wrap;row-gap:8px}.top .title{order:-1;flex:1 1 100%;min-width:0}.top .scope{flex:1 1 auto;max-width:none}}

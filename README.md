@@ -4,4 +4,4 @@ Property and asset operations platform for Al-Kazemi Group (buildings, maintenan
 
 - **Hosting:** Cloudflare Workers static assets (`public/`), deployed automatically from `main`.
 - **Data:** Supabase project `daftr` (schema `aqar`) — database, file storage, scheduled late-job alerts and the `aqar-alerts` edge function.
-- `public/app.js` and `public/app.css` are the built app (version a5d498df7c).
+- `public/app.js` and `public/app.css` are the built app (edited directly; version in index.html).
