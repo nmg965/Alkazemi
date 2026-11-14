@@ -606,3 +606,9 @@ html,body{overflow-x:clip}
 .pu-row[hidden],.pu-group[hidden]{display:none}
 @media (max-width:640px){.dialog{max-height:calc(100dvh - 16px)}.d-foot.spread{flex-wrap:wrap}}
 .dialog .search,.d-body .search{width:100%;flex:none}
+.top .title{flex:1 1 200px;min-width:150px}
+.top .title b,.top .title span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .search{flex:0 1 260px;min-width:120px}
+@media (max-width:1180px) and (min-width:641px){.top .title span{display:none}.top .search{flex-basis:200px}}
+@media (max-width:640px){.top .title{min-width:0}}
+@media (max-width:1280px) and (min-width:641px){.me .who,.me>svg{display:none}.me{padding:3px}.top .scope{flex:0 1 200px;min-width:130px}}
