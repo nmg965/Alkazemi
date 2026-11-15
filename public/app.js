@@ -723,8 +723,9 @@ function migrateV2(S){
 }
 
 /* ================= Supabase sync ================= */
-const SB_URL='https://qekfkosslaninyqkptlz.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFla2Zrb3NzbGFuaW55cWtwdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5ODAyOTMsImV4cCI6MjEwNzU1NjI5M30.C9BtS1RJH4o0BtYJKyOh4YYTyX7i2_el1qAvc7jnTXs';
+const AKAM_CFG=window.AKAM_CONFIG||{};
+const SB_URL=AKAM_CFG.supabaseUrl||'https://qekfkosslaninyqkptlz.supabase.co';
+const SB_KEY=AKAM_CFG.supabaseAnonKey||'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFla2Zrb3NzbGFuaW55cWtwdGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5ODAyOTMsImV4cCI6MjEwNzU1NjI5M30.C9BtS1RJH4o0BtYJKyOh4YYTyX7i2_el1qAvc7jnTXs';
 const SESSION_KEY='akam-session',LOCAL_KEY='akam-local-v2',THEME_KEY='akam-theme';
 const COLLS={users:'users',props:'properties',units:'units',tenants:'tenants',tickets:'tickets',rent:'rent',notifs:'notifs',outbox:'outbox',log:'audit_log',insp:'inspections',items:'items',moves:'stock_moves',vehicles:'vehicles',vjobs:'vehicle_jobs',patrols:'patrols',visitors:'visitors'};
 const RECENT={notifs:900,outbox:500,log:500,patrols:600,visitors:400,moves:600};
